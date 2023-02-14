@@ -25,6 +25,7 @@ io.on('connection', (socket) => {
     socket.join(roomName);
   });
   socket.on('send_message', (data) => {
+    console.log(data)
     console.log(`User: ${socket.id} sent message: ${data.message} to room: ${data.room}`);
     socket.to(data.room).emit('receive_message', data);
   })

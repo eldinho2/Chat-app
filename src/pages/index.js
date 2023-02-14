@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import io from 'socket.io-client';
-import { useEffect, useState } from 'react';
-import Chat from './_chat';
+import { useState } from 'react';
+import Chat from './components/_Chat';
 
 const socket = io('http://localhost:3001');
 
@@ -29,11 +29,11 @@ export default function Home() {
       </Head>
       <div>
         <h1>Chat app</h1>
-        <input type="text" placeholder="Enter your name" onChange={(e) => setUserName(e.target.value)} />
+        <input type="text" maxLength={18} placeholder="Enter your name" onChange={(e) => setUserName(e.target.value)} />
         <input type="text" placeholder="Enter room name" onChange={(e) => setRoomName(e.target.value)} />
         <button onClick={joinRoom}>Join room</button>
       </div>
-      {showChat && <Chat socket={socket} userName={userName} roomName={roomName} />}
+      { showChat && <Chat socket={socket} userName={userName} roomName={roomName} />}
     </>
   )
 }
