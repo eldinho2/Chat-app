@@ -1,0 +1,14 @@
+.chat {
+    display: flex;
+}
+
+
+.chat-body {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    margin: 10px 0;
+    padding: 10px;
+    position: relative;
+}
