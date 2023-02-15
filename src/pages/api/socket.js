@@ -5,7 +5,6 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 app.use(cors());
 
-const port = 3001;
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -16,27 +15,22 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log(`User connected with id: ${socket.id}`);
-  socket.on("disconnect", () => {
-      console.log(`User disconnected with id: ${socket.id}`);
+  console.log(`User Connected: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
-  socket.on("join_room", (roomName, userName) => {
-    console.log(`User: ${userName} joined room: ${roomName}`);
-  });
+
   socket.on("send_message", (data) => {
-    console.log(data);
-    console.log(
-      `User: ${socket.id} sent message: ${data.message} to room: ${data.room}`
-    );
     socket.to(data.room).emit("receive_message", data);
   });
-  socket.on("receive_message", (data) => {
-    console.log(
-      `User: ${socket.id} sent message: ${data.message} to room: ${data.room}`
-    );
-    socket.to(data.room).emit("receive_message", data);
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
   });
 });
-server.listen(port, () => {
-  console.log(`Server listening at port ${port}`);
+
+server.listen(3001, () => {
+  console.log("SERVER RUNNING");
 });
