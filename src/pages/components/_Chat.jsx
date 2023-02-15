@@ -4,7 +4,6 @@ import ScrollToBottom from "react-scroll-to-bottom";
 export default function Chat({ socket, userName, roomName }) {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
-  const [room, setRoom] = useState("");
   const [expanded, setExpanded] = useState(false);
   const [expandedMessageIndex, setexpandedMessageIndex] = useState(null);
 
@@ -18,8 +17,8 @@ export default function Chat({ socket, userName, roomName }) {
       };
       await socket.emit("send_message", messageData);
       setMessageList([...messageList, messageData]);
-      setMessage("");
       console.log(messageList);
+      setMessage("");
     }
   };
 

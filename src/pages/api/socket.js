@@ -15,26 +15,28 @@ const io = new Server(server, {
   },
 });
 
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   console.log(`User connected with id: ${socket.id}`);
-  socket.on('disconnect', () => {
-    console.log(`User disconnected with id: ${socket.id}`);
+  socket.on("disconnect", () => {
+      console.log(`User disconnected with id: ${socket.id}`);
   });
-  socket.on('join_room', (roomName) => {
-    console.log(`User: ${socket.id} joined room: ${roomName}`);
-    socket.join(roomName);
+  socket.on("join_room", (roomName, userName) => {
+    console.log(`User: ${userName} joined room: ${roomName}`);
   });
-  socket.on('send_message', (data) => {
-    console.log(data)
-    console.log(`User: ${socket.id} sent message: ${data.message} to room: ${data.room}`);
-    socket.to(data.room).emit('receive_message', data);
-  })
-  socket.on('receive_message', (data) => {
-    console.log(`User: ${socket.id} sent message: ${data.message} to room: ${data.room}`);
-    socket.to(data.room).emit('receive_message', data);
+  socket.on("send_message", (data) => {
+    console.log(data);
+    console.log(
+      `User: ${socket.id} sent message: ${data.message} to room: ${data.room}`
+    );
+    socket.to(data.room).emit("receive_message", data);
+  });
+  socket.on("receive_message", (data) => {
+    console.log(
+      `User: ${socket.id} sent message: ${data.message} to room: ${data.room}`
+    );
+    socket.to(data.room).emit("receive_message", data);
   });
 });
-
 server.listen(port, () => {
   console.log(`Server listening at port ${port}`);
 });
