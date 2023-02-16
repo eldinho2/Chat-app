@@ -17,7 +17,6 @@ export default function Chat({ socket, userName, roomName }) {
       };
       await socket.emit("send_message", messageData);
       setMessageList([...messageList, messageData]);
-      console.log(messageList);
       setMessage("");
     }
   };

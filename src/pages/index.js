@@ -11,12 +11,13 @@ export default function Home() {
   const [showChat, setShowChat] = useState(false);
 
   const joinRoom = () => {
-    if (userName && roomName) {
-      socket.emit("join_room", roomName, userName);
-    } else {
+    if (!userName || !roomName) {
       alert("Please enter your name and room name");
+      return;
+    } else {
+      socket.emit("join_room", roomName, userName);
+      setShowChat(true);
     }
-    setShowChat(true);
   };
 
   return (
@@ -30,9 +31,10 @@ export default function Home() {
       {showChat ? (
           <Chat socket={socket} roomName={roomName} userName={userName} />
       ) : (
-        <div>
-          <h1>Chat app</h1>
+        <div className="login-form" >
+          <h1 className="login-title" >Chat app</h1>
           <input
+            className="name-input"
             type="text"
             maxLength={18}
             placeholder="Enter your name"
@@ -40,12 +42,13 @@ export default function Home() {
             onChange={(e) => setUserName(e.target.value)}
           />
           <input
+            className="room-input"
             type="text"
             placeholder="Enter room name"
             value={roomName}
             onChange={(e) => setRoomName(e.target.value)}
           />
-          <button onClick={joinRoom}>Join room</button>
+          <button className="submit-btnLogin" onClick={joinRoom}>Join room</button>
         </div>
       )}
     </>
