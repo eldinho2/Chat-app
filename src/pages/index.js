@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { useState } from "react";
 import Chat from "./components/_Chat";
 
-const socket = io("https://chat-app-backend-plum.vercel.app");
+const socket = io("https://solstice-fir-can.glitch.me");
 
 export default function Home() {
   const [userName, setUserName] = useState("");
