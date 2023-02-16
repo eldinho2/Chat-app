@@ -9,8 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "server": "nodemon src/pages/api/socket.js"
+    "lint": "next lint"
   },
   "dependencies": {
     "@next/font": "13.1.6",
