@@ -10,12 +10,13 @@ export default function Home() {
   const [roomName, setRoomName] = useState("");
   const [showChat, setShowChat] = useState(false);
 
-  const joinRoom = () => {
-    if (!userName || !roomName) {
-      alert("Please enter your name and room name");
+  const joinRoom = (roomID) => {
+    if (!userName || !roomID) {
+      alert("Please enter your name");
       return;
     } else {
-      socket.emit("join_room", roomName, userName);
+      setRoomName(roomID);
+      socket.emit("join_room", roomID, userName);
       setShowChat(true);
     }
   };
@@ -41,14 +42,10 @@ export default function Home() {
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
           />
-          <input
-            className="room-input"
-            type="text"
-            placeholder="Enter room name"
-            value={roomName}
-            onChange={(e) => setRoomName(e.target.value)}
-          />
-          <button className="submit-btnLogin" onClick={joinRoom}>Join room</button>
+          <h2>Enter in a Room</h2>
+          <button onClick={ () => joinRoom(1)}>Room: 1</button>
+          <button onClick={ () => joinRoom(2)}>Room: 2</button>
+          <button onClick={ () => joinRoom(3)}>Room: 3</button>
         </div>
       )}
     </>
